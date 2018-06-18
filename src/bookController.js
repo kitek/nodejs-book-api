@@ -9,12 +9,14 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
     	async details(req, res, next) {
 
             const isbn = req.params.isbn;
+            const nolayout = req.query.nolayout;
+            const layout = nolayout == null ? "layout" : "";
             const book = await bookRepository.findOne(isbn);
 
              if (book) {
                 res.format({
                     'text/html'() {
-                        res.render("book", {book});
+                        res.render("book", {book, layout});
                     },
                     'application/json'() {
                         res.json(book);
