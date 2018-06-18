@@ -1,6 +1,8 @@
 {
   "scripts": {
+    "xprestart": "pgrep mongod || mongod &",
     "start": "node src/server.js",
+    "xstop": "mongo admin --eval \"db.getSiblingDB('admin').shutdownServer()\"",
     "watch": "nodemon src/server.js",
     "test:unit": "mocha test/unit",
     "test:component": "mocha test/component",
@@ -9,6 +11,7 @@
   "dependencies": {
     "body-parser": "1.18.3",
     "express": "4.16.3",
+    "mongodb": "3.0.10",
     "npm": "6.1.0"
   },
   "devDependencies": {
