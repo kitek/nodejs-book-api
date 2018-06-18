@@ -5,7 +5,7 @@
     "xstop": "mongo admin --eval \"db.getSiblingDB('admin').shutdownServer()\"",
     "watch": "NODE_ENV=development nodemon src/server.js",
     "test:unit": "mocha test/unit",
-    "test:component": "mocha test/component",
+    "test:component": "mocha --exit test/component",
     "test": "npm run test:unit && npm run test:component"
   },
   "dependencies": {

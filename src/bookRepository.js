@@ -9,11 +9,11 @@ let booksPromise = MongoClient.connect(url, {
 });
 
 module.exports = {
-	async createOrUpdate({title, authors, isbn, description}) {
+	async createOrUpdate({title, slug, authors, isbn, description}) {
         const books = await booksPromise;
         return books.updateOne(
             {isbn: isbn},
-            {$set : {title, authors, isbn, description} },
+            {$set : {title, slug, authors, isbn, description} },
             {upsert: true}
         );
     },
