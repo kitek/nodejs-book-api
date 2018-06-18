@@ -1,15 +1,6 @@
 
 const assert = require('assert');
 
-const bookService = {
-	async createOrUpdate(book) {
-		this.createOrUpdate.invokedWith = book;
-	}
-};
-const bookController = require("../../src/bookController")({
-	bookService
-});
-
 describe('Book controller', function () {
 	it('should createOrUpdate ends with happy path', async function () {
 		// Given
@@ -23,6 +14,15 @@ describe('Book controller', function () {
 				res.redirect.invokedWith = path;
 			}
 		};
+		const bookService = {
+			async createOrUpdate(book) {
+				this.createOrUpdate.invokedWith = book;
+			}
+		};
+		const bookController = require("../../src/bookController")({
+			bookService
+		});
+
 		
 		// When
 		await bookController.createOrUpdate(req, res);
@@ -35,17 +35,24 @@ describe('Book controller', function () {
 
 	it('should createOrUpdate ends with unhappy path', async function () {
 		// Given
-		const req = {};
-		const res = {};
+		const error = new Error("Ka-boom!");
 		const next = function(e) {
 			next.invokedWith = e;
 		}
+		const bookService = {
+			async createOrUpdate(book) {
+				throw error;
+			}
+		};
+		const bookController = require("../../src/bookController")({
+			bookService
+		});
 
 		// When
-		await bookController.createOrUpdate(req, res, next);
+		await bookController.createOrUpdate({}, {}, next);
 
 		// Then
-		assert.ok(next.invokedWith instanceof Error);
+		assert.deepEqual(next.invokedWith, error);
 
 	});
 
