@@ -37,7 +37,7 @@ app.get("/", function (req, res) {
     res.send("Hello World!");
 });
 
-app.post("/book", function(req, res) {
+app.post("/book", function(req, res, next) {
     // destructuring from ES6
     const {title, authors, isbn, description} = req.body;
 
@@ -49,17 +49,20 @@ app.post("/book", function(req, res) {
         );
     }).then(function() {
         res.json({title, authors, isbn, description});    
-    })
+    }).catch(next);
 
 });
 
-app.get("/book/:isbn", function (req, res) {
+app.get("/book/:isbn", function (req, res, next) {
     const isbn = req.params.isbn;
-    booksPromise.then(function(books) {
+    booksPromise
+    .then(function(books) {
         return books.findOne({isbn}, { projection: {_id: 0} });
-    }).then(function(book) {
+    })
+    .then(function(book) {
         res.json(book);
     })
+    .catch(next);
 });
 
 // -- error handling --
