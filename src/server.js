@@ -1,9 +1,8 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 
-function middleware(req, res, next) {
-
-}
+app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
 	console.log("New request ;-)");
@@ -12,16 +11,21 @@ app.use(function(req, res, next) {
 
 app.use(function(req, res, next) {
 	console.log("Doing auth...");
-	
-	// next(new Error("Ka-boom from auth!"));
 	next();
 });
 
 // -----------------------------------
 
 app.get("/", function (req, res) {
-
     res.send("Hello World!");
+});
+
+app.post("/book", function(req, res) {
+    // destructuring from ES6
+    const {title, authors, isbn, description} = req.body;
+
+
+    res.json({title, authors, isbn, description});
 });
 
 app.listen(3000, function () {

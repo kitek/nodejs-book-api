@@ -1,6 +1,16 @@
 {
+  "scripts": {
+    "start": "node src/server.js",
+    "watch": "nodemon src/server.js",
+    "test": "mocha test/unit"
+  },
   "dependencies": {
+    "body-parser": "1.18.3",
     "express": "4.16.3",
     "npm": "6.1.0"
+  },
+  "devDependencies": {
+    "mocha": "5.2.0",
+    "nodemon": "1.17.5"
   }
 }
