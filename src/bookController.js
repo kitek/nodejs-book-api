@@ -7,9 +7,26 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
             res.redirect("/book/" + book.isbn);
     	},
     	async details(req, res, next) {
+
             const isbn = req.params.isbn;
             const book = await bookRepository.findOne(isbn);
-            res.json(book);
+
+             if (book) {
+                res.format({
+                    'text/html'() {
+                        res.render("book", {book});
+                    },
+                    'application/json'() {
+                        res.json(book);
+                    },
+                    'default'() {
+                        res.json(book);
+                    }
+                });
+             } else {
+                next();
+             }
+
     	}
     });
 };
@@ -26,7 +43,7 @@ function withErrorHandling(api) {
 function wrapWithTryCatch(fn) {
     return async function(req, res, next) {
         try {
-            return await fn(req, res);
+            return await fn(req, res, next);
         } catch(e) {
             next(e);
         }

@@ -3,6 +3,10 @@ const bodyParser = require("body-parser");
 const bookRoutes = require("./bookRoutes");
 const error = require("./error");
 const app = express();
+const path = require("path");
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
 
 // -- middleware --
 
