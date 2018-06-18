@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const bookRoutes = require("./bookRoutes");
+const error = require("./error");
 const app = express();
 
 // -- middleware --
@@ -28,12 +29,8 @@ app.get("/", function (req, res) {
 
 // -- error handling --
 
-app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(500);
-    res.json({message: err.message, error: err.stack});
-});
-
+app.use(error.clientError);
+app.use(error.serverError);
 
 module.exports = app;
 
