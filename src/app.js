@@ -26,11 +26,9 @@ app.get("/", function (req, res) {
     res.send("Hello World!");
 });
 
-
 // -- error handling --
 
 app.use(error.clientError);
 app.use(error.serverError);
 
 module.exports = app;
-

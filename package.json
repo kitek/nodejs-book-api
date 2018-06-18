@@ -1,9 +1,9 @@
 {
   "scripts": {
     "xprestart": "pgrep mongod || mongod &",
-    "start": "node src/server.js",
+    "start": "NODE_ENV=production node src/server.js",
     "xstop": "mongo admin --eval \"db.getSiblingDB('admin').shutdownServer()\"",
-    "watch": "nodemon src/server.js",
+    "watch": "NODE_ENV=development nodemon src/server.js",
     "test:unit": "mocha test/unit",
     "test:component": "mocha test/component",
     "test": "npm run test:unit && npm run test:component"
