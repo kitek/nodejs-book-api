@@ -28,7 +28,7 @@ module.exports = async function() {
 
 	// -- end points --
 
-	app.use("/book", bookRoutes);
+	app.use("/", bookRoutes);
 
 	app.get("/", function (req, res) {
 	    res.send("Hello World!");

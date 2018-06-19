@@ -13,11 +13,9 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
 
     	async details(req, res, next) {
             const isbn = req.params.isbn;
-            const nolayout = req.query.nolayout;
-            const layout = nolayout == null ? "layout" : "";
             const book = await bookRepository.findOne(isbn);
 
-            responses.details({book, layout}, res, next);
+            responses.details(book, res, next);
     	},
 
         async getList(req, res) {

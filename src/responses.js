@@ -1,15 +1,17 @@
+const {bookLink} = require("./links");
+const bookViewModel = require("./bookViewModel");
 
 module.exports = {
 
 	createOrUpdate(isbn, res) {
-		res.redirect("/book/" + isbn);
+		res.redirect(bookLink(isbn));
 	},
 
-	details({book, layout}, res, next) {
+	details(book, res, next) {
 		if (book) {
             res.format({
                 'text/html'() {
-                    res.render("book", {book, layout});
+                    res.render("book", {book, layout: res.locals.layout});
                 },
                 'application/json'() {
                     res.json(book);
@@ -26,7 +28,7 @@ module.exports = {
      list(books, res) {
         res.format({
             'text/html'() {
-                res.render("books", {books});
+                res.render("books", bookViewModel.html({books, layout: res.locals.layout}));
             },
             'application/json'() {
                 res.json(books);
@@ -38,3 +40,4 @@ module.exports = {
      }
 
 }
+
