@@ -4,9 +4,9 @@ const bookRoutesFactory = require("./book/bookRoutes");
 const error = require("./error");
 const path = require("path");
 
-module.exports = async function(config) {
+module.exports = async function({config, auth}) {
 
-	const bookRoutes = await bookRoutesFactory(config);
+	const bookRoutes = await bookRoutesFactory({config, auth});
 	const app = express();
 
 	app.set("views", path.join(__dirname, "views"));
