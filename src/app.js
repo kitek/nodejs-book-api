@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const bookRoutesFactory = require("./bookRoutes");
+const bookRoutesFactory = require("./book/bookRoutes");
 const error = require("./error");
 const path = require("path");
 

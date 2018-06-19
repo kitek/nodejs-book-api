@@ -1,5 +1,5 @@
 const makeSlug = require("./makeSlug");
-const generatePages = require("./generatePages");
+const generatePages = require("../../pagination/generatePages");
 
 module.exports = function bookServiceFactory(bookRepository) {
     return {

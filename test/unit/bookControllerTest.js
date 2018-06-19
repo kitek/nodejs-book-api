@@ -19,7 +19,7 @@ describe('Book controller', function () {
 				this.createOrUpdate.invokedWith = book;
 			}
 		};
-		const bookController = require("../../src/bookController")({
+		const bookController = require("../../src/book/bookController")({
 			bookService
 		});
 
@@ -44,7 +44,7 @@ describe('Book controller', function () {
 				throw error;
 			}
 		};
-		const bookController = require("../../src/bookController")({
+		const bookController = require("../../src/book/bookController")({
 			bookService
 		});
 

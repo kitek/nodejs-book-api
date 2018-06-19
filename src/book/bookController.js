@@ -1,5 +1,5 @@
-const responses = require("./responses");
-const userInput = require("./userInput");
+const responses = require("./response/responses");
+const userInput = require("./request/userInput");
 
 module.exports = function bookControllerFactory({bookService, bookRepository}) {
     return withErrorHandling({
