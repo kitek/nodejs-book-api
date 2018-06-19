@@ -1,34 +1,22 @@
 
+const responses = require("./responses.js");
+
 module.exports = function bookControllerFactory({bookService, bookRepository}) {
     return withErrorHandling({
+
     	async createOrUpdate(req, res, next) {
             const book = req.body;
             await bookService.createOrUpdate(book);
             res.redirect("/book/" + book.isbn);
     	},
-    	async details(req, res, next) {
 
+    	async details(req, res, next) {
             const isbn = req.params.isbn;
             const nolayout = req.query.nolayout;
             const layout = nolayout == null ? "layout" : "";
             const book = await bookRepository.findOne(isbn);
 
-             if (book) {
-                res.format({
-                    'text/html'() {
-                        res.render("book", {book, layout});
-                    },
-                    'application/json'() {
-                        res.json(book);
-                    },
-                    'default'() {
-                        res.json(book);
-                    }
-                });
-             } else {
-                next();
-             }
-
+            responses.details({book, layout}, res, next);
     	}
     });
 };
