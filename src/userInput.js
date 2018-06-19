@@ -6,5 +6,9 @@ module.exports = {
 		const limit = 10;
 
         return {sort: sortNormalized, sortBy: sortByNormalized, start: startNormalized, limit};
+    },
+    sanitizeQuery(query) {
+    	if(!query || typeof query !== "string") return "";
+    	return query.trim().substring(0, 32);
     }
 };
