@@ -16,10 +16,15 @@ module.exports = function bookRepositoryFactory(db) {
                 { projection: {_id: 0} }
             );
         },
-        async findBy({sort, sortBy}) {
+        async getCount() {
+            return books.count();
+        },
+        async findBy({sort, sortBy, start, limit}) {
             return books
                 .find()
                 .sort({[sortBy]: sort === "asc" ? 1: -1})
+                .skip(start * limit)
+                .limit(limit)
                 .toArray();
         }
     }

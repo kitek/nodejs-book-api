@@ -25,11 +25,12 @@ module.exports = {
          }
      },
 
-     list({books, listCriteria}, res) {
+     list({books, pages, listCriteria}, res) {
         res.format({
             'text/html'() {
                 res.render("books", bookViewModel.html({
                     books, 
+                    pages,
                     listCriteria,
                     layout: res.locals.layout
                 }));

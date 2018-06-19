@@ -13,6 +13,9 @@ const links = {
 			sortById: link(links.resources.BOOK_COLLECTION, {sortBy: "id", sort: reverse(sort)}),
             sortByTitle: link(links.resources.BOOK_COLLECTION, {sortBy: "title", sort: reverse(sort)})
 		};
+	},
+	paginationLink({start, sortBy, sort}) {
+    	return link(links.resources.BOOK_COLLECTION, {start, sortBy, sort});
 	}
 };
 

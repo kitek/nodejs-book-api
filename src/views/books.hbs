@@ -18,3 +18,13 @@
     {{/books}}
     </tbody>
 </table>
+
+<nav aria-label="navigation between pages with books">
+    <ul class="pagination">
+        {{#pages}}
+            <li class="page-item {{#isCurrent}}active{{/isCurrent}}">
+                <a class="page-link" href="{{href}}">{{humanDisplay}}</a>
+            </li>
+        {{/pages}}
+    </ul>
+</nav>
