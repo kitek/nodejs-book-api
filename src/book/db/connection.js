@@ -5,4 +5,4 @@ module.exports = async function(url) {
 		bufferMaxEntries: 0
 	});
 	return dbConnection.db();
-}
+};
