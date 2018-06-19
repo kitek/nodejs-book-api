@@ -1,38 +1,40 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const bookRoutes = require("./bookRoutes");
-const error = require("./error");
-const app = express();
-const path = require("path");
+module.exports = async function() {
+	const express = require("express");
+	const bodyParser = require("body-parser");
+	const bookRoutes = await require("./bookRoutes")();
+	const error = require("./error");
+	const app = express();
+	const path = require("path");
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
+	app.set("views", path.join(__dirname, "views"));
+	app.set("view engine", "hbs");
 
-// -- middleware --
+	// -- middleware --
 
-app.use(bodyParser.json());
+	app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-	console.log("New request ;-)");
-	next();
-});
+	app.use(function(req, res, next) {
+		console.log("New request ;-)");
+		next();
+	});
 
-app.use(function(req, res, next) {
-	console.log("Doing auth...");
-	next();
-});
+	app.use(function(req, res, next) {
+		console.log("Doing auth...");
+		next();
+	});
 
-// -- end points --
+	// -- end points --
 
-app.use("/book", bookRoutes);
+	app.use("/book", bookRoutes);
 
-app.get("/", function (req, res) {
-    res.send("Hello World!");
-});
+	app.get("/", function (req, res) {
+	    res.send("Hello World!");
+	});
 
-// -- error handling --
+	// -- error handling --
 
-app.use(error.clientError);
-app.use(error.serverError);
+	app.use(error.clientError);
+	app.use(error.serverError);
 
-module.exports = app;
+	return app;
+}
