@@ -31,6 +31,12 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
             const books = await bookRepository.query(userInput.sanitizeQuery(q));
     
             responses.list({books}, res);
+        },
+
+        async topAuthorsReport(req, res) {
+          const report = await bookRepository.topAuthors();
+
+          res.json(report);
         }
 
     });

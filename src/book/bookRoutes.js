@@ -4,7 +4,7 @@ const bookRepositoryFactory = require("./db/bookRepository");
 const bookServiceFactory = require("./domain/bookService");
 const controllerFactory = require("./bookController");
 const layoutDecorator = require("../layout/layoutDecorator");
-const {BOOK, BOOK_COLLECTION, SEARCH} = require("./response/links").resources;
+const {BOOK, BOOK_COLLECTION, SEARCH, TOP_AUTHORS} = require("./response/links").resources;
 
 module.exports = async function routerFactory(config) {
 	const router = Router();
@@ -18,6 +18,7 @@ module.exports = async function routerFactory(config) {
 	router.post(BOOK_COLLECTION, controller.createOrUpdate);
 	router.get(BOOK, controller.details);
 	router.get(SEARCH, controller.search);
+	router.get(TOP_AUTHORS, controller.topAuthorsReport);
 
 	bookRepository.buildIndex();
 

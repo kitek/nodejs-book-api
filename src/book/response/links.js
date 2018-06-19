@@ -4,7 +4,8 @@ const links = {
 	resources: {
 		BOOK: "/book/:isbn",
 		BOOK_COLLECTION: "/book",
-		SEARCH: "/search"
+		SEARCH: "/search",
+		TOP_AUTHORS: "/topauthor"
 	},
 	bookLink(isbn) {
 		return links.resources.BOOK.replace(":isbn", isbn);
