@@ -24,7 +24,15 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
             const {books, pages} = await bookService.getList(listCriteria);
 
             responses.list({listCriteria, pages, books}, res)
+        },
+
+        async search(req, res) {
+            const {q} = req.query;
+            const books = await bookRepository.query(q);
+    
+            responses.list({books}, res);
         }
+
     });
 };
 

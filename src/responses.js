@@ -25,7 +25,7 @@ module.exports = {
          }
      },
 
-     list({books, pages, listCriteria}, res) {
+     list({books, pages = [], listCriteria = {}}, res) {
         res.format({
             'text/html'() {
                 res.render("books", bookViewModel.html({

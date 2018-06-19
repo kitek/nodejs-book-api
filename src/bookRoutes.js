@@ -6,7 +6,7 @@ const bookRepositoryFactory = require("./bookRepository");
 const bookServiceFactory = require("./bookService");
 const controllerFactory = require("./bookController");
 const layoutDecorator = require("./layoutDecorator");
-const {BOOK, BOOK_COLLECTION} = require("./links").resources;
+const {BOOK, BOOK_COLLECTION, SEARCH} = require("./links").resources;
 
 module.exports = async function routerFactory() {
 	const router = Router();
@@ -19,6 +19,9 @@ module.exports = async function routerFactory() {
 	router.get(BOOK_COLLECTION, controller.getList);
 	router.post(BOOK_COLLECTION, controller.createOrUpdate);
 	router.get(BOOK, controller.details);
+	router.get(SEARCH, controller.search);
+
+	bookRepository.buildIndex();
 
 	return router;
 };

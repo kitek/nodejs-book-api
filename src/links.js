@@ -3,7 +3,8 @@ const qs = require("querystring");
 const links = {
 	resources: {
 		BOOK: "/book/:isbn",
-		BOOK_COLLECTION: "/book"
+		BOOK_COLLECTION: "/book",
+		SEARCH: "/search"
 	},
 	bookLink(isbn) {
 		return links.resources.BOOK.replace(":isbn", isbn);
