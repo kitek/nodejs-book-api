@@ -3,7 +3,7 @@ module.exports = function bookRepositoryFactory(db) {
     const books = db.collection("books");
 
     return {
-            async createOrUpdate({title, slug, authors, isbn, description}) {
+        async createOrUpdate({title, slug, authors, isbn, description}) {
             return books.updateOne(
                 {isbn: isbn},
                 {$set : {title, slug, authors, isbn, description} },

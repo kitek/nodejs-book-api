@@ -1,9 +1,9 @@
 const httpClient = require('supertest');
-const app = require('../../src/app');
 const assert = require("assert");
 
 describe('Book inventory', function () {
     it('allows to stock up the items', async function () {
+        const app = await require('../../src/app')();
         const request =  httpClient(app);
 
         // CREATE
