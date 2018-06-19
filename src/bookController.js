@@ -7,7 +7,8 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
     	async createOrUpdate(req, res, next) {
             const book = req.body;
             await bookService.createOrUpdate(book);
-            res.redirect("/book/" + book.isbn);
+
+            responses.createOrUpdate(book.isbn, res);
     	},
 
     	async details(req, res, next) {
@@ -17,7 +18,13 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
             const book = await bookRepository.findOne(isbn);
 
             responses.details({book, layout}, res, next);
-    	}
+    	},
+
+        async getList(req, res) {
+            const books = await bookRepository.findAll();
+
+            responses.list(books, res)
+        }
     });
 };
 

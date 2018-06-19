@@ -1,7 +1,11 @@
 
 module.exports = {
 
-	details: function({book, layout}, res, next) {
+	createOrUpdate(isbn, res) {
+		res.redirect("/book/" + isbn);
+	},
+
+	details({book, layout}, res, next) {
 		if (book) {
             res.format({
                 'text/html'() {
@@ -17,6 +21,20 @@ module.exports = {
          } else {
             next();
          }
+     },
+
+     list(books, res) {
+        res.format({
+            'text/html'() {
+                res.render("books", {books});
+            },
+            'application/json'() {
+                res.json(books);
+            },
+            'default'() {
+                res.json(books);
+            }
+        });
      }
-     
+
 }

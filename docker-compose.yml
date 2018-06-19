@@ -5,6 +5,14 @@ services:
     image: mongo
     ports:
           - "27017:27017"
+  db-import:
+    env_file: .env
+    image: mongo
+    depends_on: 
+      - db
+    volumes:
+      - ./data:/data
+    command: ./data/import.sh
   book-api:
     env_file: .env
     volumes:
