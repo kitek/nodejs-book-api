@@ -1,10 +1,13 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const bookRoutesFactory = require("./bookRoutes");
+const error = require("./error");
+const path = require("path");
+
 module.exports = async function() {
-	const express = require("express");
-	const bodyParser = require("body-parser");
-	const bookRoutes = await require("./bookRoutes")();
-	const error = require("./error");
+
+	const bookRoutes = await bookRoutesFactory();
 	const app = express();
-	const path = require("path");
 
 	app.set("views", path.join(__dirname, "views"));
 	app.set("view engine", "hbs");
