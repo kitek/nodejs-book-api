@@ -19,7 +19,9 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
     	},
 
         async getList(req, res) {
-            const books = await bookRepository.findAll();
+            const {sort, sortBy} = req.query;
+            const listCriteria = {sort, sortBy}
+            const books = await bookRepository.findBy(listCriteria);
 
             responses.list(books, res)
         }
