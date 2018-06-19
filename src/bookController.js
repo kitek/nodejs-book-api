@@ -1,5 +1,5 @@
-
-const responses = require("./responses.js");
+const responses = require("./responses");
+const userInput = require("./userInput");
 
 module.exports = function bookControllerFactory({bookService, bookRepository}) {
     return withErrorHandling({
@@ -20,10 +20,10 @@ module.exports = function bookControllerFactory({bookService, bookRepository}) {
 
         async getList(req, res) {
             const {sort, sortBy} = req.query;
-            const listCriteria = {sort, sortBy}
+            const listCriteria = userInput.sanitizeListCriteria({sort, sortBy});
             const books = await bookRepository.findBy(listCriteria);
 
-            responses.list(books, res)
+            responses.list({listCriteria, books}, res)
         }
     });
 };
