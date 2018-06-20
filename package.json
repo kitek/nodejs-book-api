@@ -6,7 +6,8 @@
     "watch": "NODE_ENV=development nodemon src/server.js",
     "test:unit": "mocha test/unit",
     "test:component": "mocha --exit test/component",
-    "test": "npm run test:unit && npm run test:component"
+    "test": "npm run test:unit && npm run test:component",
+    "format": "prettier --write \"{src,test}/**/*.js\""
   },
   "dependencies": {
     "body-parser": "1.18.3",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "mocha": "5.2.0",
     "nodemon": "1.17.5",
+    "prettier": "1.13.5",
     "supertest": "3.1.0"
   }
 }

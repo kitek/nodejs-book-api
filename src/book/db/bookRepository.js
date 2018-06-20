@@ -2,7 +2,6 @@ module.exports = function bookRepositoryFactory(db) {
   const books = db.collection("books");
 
   return {
-
     createOrUpdate({ title, slug, authors, isbn, description }) {
       return books.updateOne(
         { isbn: isbn },
@@ -12,10 +11,7 @@ module.exports = function bookRepositoryFactory(db) {
     },
 
     findOne(isbn) {
-      return books.findOne(
-        { isbn },
-        { projection: { _id: 0 } }
-      );
+      return books.findOne({ isbn }, { projection: { _id: 0 } });
     },
 
     getCount() {
@@ -33,10 +29,7 @@ module.exports = function bookRepositoryFactory(db) {
 
     query(q) {
       return books
-        .find(
-          { $text: { $search: q } },
-          { _id: 0 }
-        )
+        .find({ $text: { $search: q } }, { _id: 0 })
         .limit(10)
         .toArray();
     },
@@ -56,26 +49,27 @@ module.exports = function bookRepositoryFactory(db) {
     },
 
     topAuthors() {
-      return books.aggregate([
-        {
-          $project: {
-            authors: 1,
-            isbn: 1
-          }
-        },
-        { $unwind: "$authors" },
-        { $match: { authors: { $exists: true, $ne: "" } } },
-        {
-          $group: {
-            _id: "$authors",
-            books: { $push: "$isbn" },
-            bookCount: { $sum: 1 }
-          }
-        },
-        { $sort: { bookCount: -1 } },
-        { $limit: 10 }
-      ]).toArray();
+      return books
+        .aggregate([
+          {
+            $project: {
+              authors: 1,
+              isbn: 1
+            }
+          },
+          { $unwind: "$authors" },
+          { $match: { authors: { $exists: true, $ne: "" } } },
+          {
+            $group: {
+              _id: "$authors",
+              books: { $push: "$isbn" },
+              bookCount: { $sum: 1 }
+            }
+          },
+          { $sort: { bookCount: -1 } },
+          { $limit: 10 }
+        ])
+        .toArray();
     }
-
-  }
+  };
 };
